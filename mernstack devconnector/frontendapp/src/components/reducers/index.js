@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
-import alert from './alert';
+import data from './task';
 
 
 export default combineReducers({
-    alert
+    data
 });
 
 
