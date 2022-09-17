@@ -1,7 +1,9 @@
 import React, { useState} from "react";
+import { connect } from 'react-redux';
+import { setAlert } from '../../action/alert';
+import { register } from '../../action/auth';
 
-
-const Register = () => {
+const Register = ({setAlert, register}) => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -17,9 +19,9 @@ const Register = () => {
     const onSubmit = async e => {
         e.preventDefault();
         if(password !== password2) {
-            console.log('Passwords do not match');
+            setAlert('Passwords do not match', 'danger');
         } else {
-            console.log(formData)
+            register({name, email, password});
         } 
     };
 
@@ -36,7 +38,7 @@ const Register = () => {
             name="name" 
             value={name} 
             onChange={e => onChange(e)}
-            required />
+             />
           </div>
           <div className="form-group">
             <input 
@@ -45,7 +47,7 @@ const Register = () => {
             name="email" 
             value={email} 
             onChange={e => onChange(e)}
-            required/>
+            />
             <small className="form-text"
               >This site uses Gravatar so if you want a profile image, use a
               Gravatar email</small
@@ -59,7 +61,7 @@ const Register = () => {
               required
               value={password} 
             onChange={e => onChange(e)}
-              minLength="6"
+              
 
             />
           </div>
@@ -71,7 +73,7 @@ const Register = () => {
               required
               value={password2} 
             onChange={e => onChange(e)}
-              minLength="6"
+              
             />
           </div>
           <input type="submit" className="btn btn-primary" value="Register" />
@@ -85,4 +87,6 @@ const Register = () => {
         )
 }
 
-export default Register;
+
+
+export default connect (null, {setAlert,register})(Register);
