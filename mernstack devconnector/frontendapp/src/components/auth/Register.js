@@ -1,9 +1,10 @@
 import React, { useState} from "react";
 import { connect } from 'react-redux';
+import { Link,Navigate } from "react-router-dom";
 import { setAlert } from '../../action/alert';
 import { register } from '../../action/auth';
 
-const Register = ({setAlert, register}) => {
+const Register = ({setAlert, register, isAuthenticated}) => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -21,9 +22,14 @@ const Register = ({setAlert, register}) => {
         if(password !== password2) {
             setAlert('Passwords do not match', 'danger');
         } else {
-            register({name, email, password});
+            register(name, email, password);
         } 
     };
+
+    if(isAuthenticated){
+
+      return < Navigate to="/dashboard" />
+    }
 
     return (
         
@@ -38,7 +44,7 @@ const Register = ({setAlert, register}) => {
             name="name" 
             value={name} 
             onChange={e => onChange(e)}
-             />
+             required/>
           </div>
           <div className="form-group">
             <input 
@@ -47,7 +53,7 @@ const Register = ({setAlert, register}) => {
             name="email" 
             value={email} 
             onChange={e => onChange(e)}
-            />
+            required/>
             <small className="form-text"
               >This site uses Gravatar so if you want a profile image, use a
               Gravatar email</small
@@ -61,7 +67,7 @@ const Register = ({setAlert, register}) => {
               required
               value={password} 
             onChange={e => onChange(e)}
-              
+              minLength='6'
 
             />
           </div>
@@ -79,14 +85,17 @@ const Register = ({setAlert, register}) => {
           <input type="submit" className="btn btn-primary" value="Register" />
         </form>
         <p className="my-1">
-          Already have an account? <a href="login.html">Sign In</a>
+          Already have an account? <Link to="/register">Login </Link>
         </p>
         </section>
         
 
         )
 }
+const mapStateToProps = state => ({
+ isAuthenticated: state.auth.isAuthenticated
+});
 
 
 
-export default connect (null, {setAlert,register})(Register);
+export default connect (mapStateToProps, {setAlert,register})(Register);
