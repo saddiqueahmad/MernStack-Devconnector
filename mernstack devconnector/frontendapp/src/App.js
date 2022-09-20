@@ -1,6 +1,6 @@
 import React from 'react';
 import { useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Navbar from './components/layout/Navbar';
 import Landing from './components/layout/Landing';
 import Login from './components/auth/Login';
@@ -8,6 +8,8 @@ import Register from './components/auth/Register';
 import Alert from './components/layout/Alert';
 import { loadUser } from './action/auth';
 import setAuthToken from './utils/setAuthToken';
+import Dashboard from './components/dashboard/Dashboard';
+import PrivateRoute from './components/routing/PrivateRoute';
 import './App.css';
 //Redux
 import { Provider } from 'react-redux';
@@ -38,12 +40,15 @@ return (
 
 <section className="container">
      <Alert />
-     <Routes>
-      <Route  path='/' element={<Landing />} />
-      <Route path="/register" element={<Register />} />
-      <Route path="/login" element={<Login />} /> 
+     <Switch>
+      <Route exact path='/' component={Landing} />
+      <Route exact path="/register" component={Register} />
+      <Route exact  path="/login" component={Login } /> 
+     
+      <PrivateRoute exact path="/dashboard" component={Dashboard}/>
+       
 
-     </Routes> 
+     </Switch> 
 </section>
 </>
 </Router>
