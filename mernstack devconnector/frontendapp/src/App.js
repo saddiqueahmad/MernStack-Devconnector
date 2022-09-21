@@ -9,6 +9,7 @@ import Alert from './components/layout/Alert';
 import { loadUser } from './action/auth';
 import setAuthToken from './utils/setAuthToken';
 import Dashboard from './components/dashboard/Dashboard';
+import CreateProfile from './components/profile-forms/CreateProfile';
 import PrivateRoute from './components/routing/PrivateRoute';
 import './App.css';
 //Redux
@@ -46,6 +47,7 @@ return (
       <Route exact  path="/login" component={Login } /> 
      
       <PrivateRoute exact path="/dashboard" component={Dashboard}/>
+      <PrivateRoute exact path="/create-profile" component={CreateProfile}/>
        
 
      </Switch> 
