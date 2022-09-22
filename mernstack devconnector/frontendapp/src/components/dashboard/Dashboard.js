@@ -18,7 +18,7 @@ const Dashboard = ({getCurrentProfile,auth:{ user},profile: {profile,loading}
         <i className='fas fa-user'>Welcome { user && user.name}</i>
       </p>
       
-      {profile === null ? <Fragment>has</Fragment> : 
+      {profile !== null ? <Fragment>has</Fragment>:
       <Fragment>
         <p>You dont have a profile,please add some info </p>
         <Link to='/create-profile' className='btn btn-primary my-1'>
