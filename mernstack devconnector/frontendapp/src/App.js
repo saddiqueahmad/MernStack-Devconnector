@@ -10,6 +10,7 @@ import { loadUser } from './action/auth';
 import setAuthToken from './utils/setAuthToken';
 import Dashboard from './components/dashboard/Dashboard';
 import CreateProfile from './components/profile-forms/CreateProfile';
+import EditProfile from './components/profile-forms/EditProfile';
 import PrivateRoute from './components/routing/PrivateRoute';
 import './App.css';
 //Redux
@@ -48,6 +49,7 @@ return (
      
       <PrivateRoute exact path="/dashboard" component={Dashboard}/>
       <PrivateRoute exact path="/create-profile" component={CreateProfile}/>
+      <PrivateRoute exact path="/Edit-profile" component={EditProfile}/>
        
 
      </Switch> 

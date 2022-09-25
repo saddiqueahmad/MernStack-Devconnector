@@ -1,10 +1,10 @@
-import React,{Fragment, useState} from 'react';
+import React,{Fragment, useState, useEffect} from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { createProfile } from '../../action/profile';
+import { createProfile, getCurrentProfile } from '../../action/profile';
 
 
-const CreateProfile = ({createProfile, history}) => {
+const EditProfile= ({profile: {profile,loading}, createProfile,getCurrentProfile, history}) => {
   const [formData, setFormData] = useState({
   company: '',
   website: '',
@@ -21,6 +21,23 @@ const CreateProfile = ({createProfile, history}) => {
 }); 
 
 const [displaySocialInputs, toggleSocialInputs] = useState(false);
+useEffect(() => {
+    getCurrentProfile();
+    setFormData({
+        company: loading || !profile.company ? '' : profile.company,
+        website: loading || !profile.website ? '' : profile.website,
+        location: loading || !profile.location ? '' : profile.location,
+        status: loading || !profile.status ? '' : profile.status,
+        skills: loading || !profile.company ? '' : profile.skills.join(','),
+        githubusername: loading || !profile.githubusername ? '' : profile.githubusername,
+        bio: loading || !profile.bio ? '' : profile.bio,
+        twitter: loading || !profile.social ? '' : profile.social.twitter,
+        facebook: loading || !profile.social ? '' : profile.social.facebook,
+        linkedin: loading || !profile.social ? '' : profile.social.linkedin,
+        youtube: loading || !profile.social ? '' : profile.social.youtube,
+        instagram: loading || !profile.social ? '' : profile.social.instagram
+    });
+}, [loading]);
   
   const {
   company,
@@ -41,7 +58,7 @@ const onChange = e => setFormData({...formData, [e.target.name]: e.target.value}
 
 const onSubmit = e => {
     e.preventDefault();
-    createProfile(formData, history);
+    createProfile(formData, history,true);
 }
 
   return (
@@ -159,18 +176,18 @@ const onSubmit = e => {
         </div>
 
         </Fragment>}
-        <input type="submit" className="btn btn-primary my-1" />
-        <Link className="btn btn-light my-1" to="/dashboard">Go Back</Link>
 
         
         <input type="submit" className="btn btn-primary my-1" />
-        <a className="btn btn-light my-1" href="dashboard.html">Go Back</a>
+        <Link className="btn btn-light my-1" to="/dashboard">Go Back</Link>
       </form>
     </Fragment>
   )
 }
 
+const mapStateToProps = state => ({
+ profile: state.profile
+});
 
 
-
-export default connect(null,{createProfile})(CreateProfile);
+export default connect(mapStateToProps,{createProfile,getCurrentProfile})(EditProfile);
