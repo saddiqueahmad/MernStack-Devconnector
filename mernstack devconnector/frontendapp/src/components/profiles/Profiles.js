@@ -1,4 +1,4 @@
-import React, {useEffect, Fragment} from 'react';
+import React, {Fragment, useEffect} from 'react';
 import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
 import ProfileItem from './ProfileItem';
@@ -7,7 +7,7 @@ import {getProfiles} from '../../action/profile';
 const Profiles = ({ getProfiles, profile: {profiles, loading}}) => {
     useEffect(() => {
         getProfiles();
-    }, []);
+    }, [getProfiles]);
   return <Fragment>
   { loading ? <Spinner /> : <Fragment>
     <h1 className='large text-primary'>Developers</h1>
@@ -24,7 +24,7 @@ const Profiles = ({ getProfiles, profile: {profiles, loading}}) => {
             }
     </div>
     </Fragment>}
-  </Fragment>;
+  </Fragment>
 };
 
 const mapStateToProps = state => ({

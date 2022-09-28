@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import { Link } from 'react-router-dom';
 import {addExperience} from '../../action/profile';
 import { connect } from 'react-redux';
 
