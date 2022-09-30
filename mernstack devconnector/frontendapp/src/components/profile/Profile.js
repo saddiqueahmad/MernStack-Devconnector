@@ -2,13 +2,15 @@ import React, {Fragment,useEffect} from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Spinner from '../layout/Spinner';
+import ProfileTop from './ProfileTop';
+import ProfileAbout from './ProfileAbout';
 import {getProfileById} from '../../action/profile';
 
 const Profile = ({ getProfileById,
      profile: { profile,loading},
       auth,
       match
-           }) => {
+    }) => {
    useEffect(() => {
     getProfileById(match.params.id)
    }, [getProfileById, match.params.id]);
@@ -26,8 +28,12 @@ const Profile = ({ getProfileById,
             auth.user._id === profile.user._id && (
               <Link to="/edit-profile" className="btn btn-dark">
                 Edit Profile
-              </Link>)
-            }
+              </Link>
+              )}
+              <div class= "profile-grid my-1">
+                <ProfileTop profile= {profile}/>
+                <ProfileAbout profile= {profile}/> 
+              </div>
               </Fragment>
             )}
     </Fragment>
